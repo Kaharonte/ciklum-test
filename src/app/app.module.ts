@@ -5,10 +5,12 @@ import { HttpModule, JsonpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
+import { FilterNumberPipe } from './app.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FilterNumberPipe
   ],
   imports: [
     BrowserModule,

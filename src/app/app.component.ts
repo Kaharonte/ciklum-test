@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import { Datos } from './datos';
+import { FilterNumberPipe } from './app.pipe';
 import { AppService } from './app.service';
 
 @Component({
@@ -8,8 +8,10 @@ import { AppService } from './app.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  public datos;
+  datos: Object;
   errorMessage = null;
+  rank: Object;
+  today: Date;
 
   constructor(
     private appService:AppService
@@ -18,7 +20,9 @@ export class AppComponent implements OnInit {
   getDatos(): void{
     this.appService.getData().subscribe(result => {
                                               this.datos = result;
-                                              console.log(this.datos)
+                                              console.log(this.datos);
+                                              this.formatDay(result);
+                                              this.rank = result.last.odds;
                                             },
                                             error => {
                                               this.errorMessage = <any>error;
@@ -32,6 +36,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void{
     this.getDatos();
+  }
+
+  formatDay(a): void{
+    var aux = a.last.date;
+    this.today = new Date(aux.year,aux.month-1,aux.day);
   }
 
 }
